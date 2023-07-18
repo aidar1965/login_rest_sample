@@ -24,8 +24,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final decoration = InputDecoration(
-        hintText: LocaleKeys.authEmailHint.tr(),
+    InputDecoration setDecoration({required String hint}) => InputDecoration(
+        hintText: hint,
         hintStyle: context.style16w700button
             ?.copyWith(color: Palette.hint, fontWeight: FontWeight.w400),
         contentPadding: const EdgeInsets.symmetric(
@@ -68,7 +68,8 @@ class LoginScreen extends StatelessWidget {
                                 Material(
                                   child: TextFormField(
                                     controller: emailController,
-                                    decoration: decoration,
+                                    decoration: setDecoration(
+                                        hint: LocaleKeys.authEmailHint.tr()),
                                   ),
                                 ),
                                 const Padding(
@@ -84,7 +85,8 @@ class LoginScreen extends StatelessWidget {
                                   child: TextFormField(
                                     controller: passwordController,
                                     obscureText: true,
-                                    decoration: decoration,
+                                    decoration: setDecoration(
+                                        hint: LocaleKeys.authPasswordHint.tr()),
                                   ),
                                 ),
                                 const SizedBox(
