@@ -1,0 +1,21 @@
+{
+    "locale": "RU",
+
+    "ok": "Ok",
+
+    "authTitle": "Авторизация",
+    "authEmailHint": "Логин или почта",
+    "authPasswordHint": "Пароль",
+    "strip": "Лента",
+    "labelError": "Ошибка!",
+    "authEnterButton": "Войти",
+    "authRegisterButton": "Зарегистрироваться",
+
+    "profileTitle": "Профиль",
+    "mapTitle": "Карта",
+    "wallTitle": "Лента",
+    "favoriteTitle": "Избранное",
+
+    "profileLogout": "Выйти"
+
+}
