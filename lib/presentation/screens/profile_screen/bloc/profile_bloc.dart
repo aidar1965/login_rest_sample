@@ -1,25 +1,23 @@
-import 'package:bloc/bloc.dart';
-import 'package:dep_gen/dep_gen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../domain/interfaces/i_user_repository.dart';
 import '../../../../domain/models/user.dart';
+import '../../../../locator/locator.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
 part 'profile_bloc.freezed.dart';
 
-@DepGen()
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc({@DepArg() required this.userRepository})
-      : super(const _StatePending()) {
+  ProfileBloc() : super(const _StatePending()) {
     on<ProfileEvent>((event, emitter) => event.map(
         logout: (event) => _logout(),
         userDataRequested: (event) => _userDataRequested(event, emitter)));
     add(const ProfileEvent.userDataRequested());
   }
 
-  final IUserRepository userRepository;
+  final IUserRepository userRepository = getIt<IUserRepository>();
 
   Future<void> _logout() async {
     await userRepository.logout();

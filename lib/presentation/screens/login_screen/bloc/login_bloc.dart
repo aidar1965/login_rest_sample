@@ -1,25 +1,21 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dep_gen/dep_gen.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:login_rest_sample/data/api/http_client/request_exception.dart';
 import 'package:login_rest_sample/domain/interfaces/i_user_repository.dart';
 
 import '../../../../domain/interfaces/i_api_facade.dart';
 import '../../../../domain/interfaces/i_auth_controller.dart';
+import '../../../../locator/locator.dart';
 
 part 'login_bloc.freezed.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
-@DepGen()
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc(
-      {@DepArg() required this.api,
-      @DepArg() required this.authController,
-      @DepArg() required this.userRepository})
-      : super(const _StateInitial()) {
+  LoginBloc() : super(const _StateInitial()) {
     on<LoginEvent>((event, emitter) => event.map(
         formSubmitted: (event) => _formSubmitted(
               event,
@@ -27,9 +23,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             )));
   }
 
-  final IApiFacade api;
-  final IAuthController authController;
-  final IUserRepository userRepository;
+  final IApiFacade api = getIt<IApiFacade>();
+  final IAuthController authController = getIt<IAuthController>();
+  final IUserRepository userRepository = getIt<IUserRepository>();
 
   Future<void> _formSubmitted(
       _EventFormSubmitted event, Emitter<LoginState> emitter) async {

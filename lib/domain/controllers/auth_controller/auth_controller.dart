@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:login_rest_sample/domain/interfaces/i_auth_controller.dart';
 import 'package:login_rest_sample/domain/interfaces/i_local_cache.dart';
 import 'package:login_rest_sample/domain/models/tokens_pair.dart';
 
-class AuthController extends ChangeNotifier implements IAuthController {
-  AuthController({
-    required this.localCache,
-  });
+import '../../../locator/locator.dart';
 
-  final ILocalCache localCache;
+@LazySingleton(as: IAuthController)
+class AuthController extends ChangeNotifier implements IAuthController {
+  final ILocalCache localCache = getIt<ILocalCache>();
   late bool _isAuthenticated;
 
   @override
@@ -18,8 +18,9 @@ class AuthController extends ChangeNotifier implements IAuthController {
   void removeChangeListener(Function() listener) => removeListener(listener);
 
   @override
-  Future<void> init() async {
+  Future<AuthController> init() async {
     _isAuthenticated = (await localCache.getAuthTokens() != null);
+    return this;
   }
 
   @override

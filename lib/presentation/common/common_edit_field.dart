@@ -1,12 +1,4 @@
-import 'dart:math';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'package:login_rest_sample/presentation/theme/context_extension.dart';
-
-import '../../../generated/locale_keys.g.dart';
 
 import '../values/palette.dart';
 import '../values/values.dart';

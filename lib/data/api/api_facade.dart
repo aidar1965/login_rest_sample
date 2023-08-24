@@ -8,6 +8,8 @@ import 'package:login_rest_sample/domain/models/login_result.dart';
 import 'package:login_rest_sample/domain/interfaces/i_auth_controller.dart';
 
 import '../../domain/interfaces/i_api_facade.dart';
+
+import '../../locator/locator.dart';
 import 'http_client/http_client.dart';
 import 'mapper/mapper.dart';
 
@@ -16,15 +18,11 @@ typedef _JsonObject = Map<String, Object?>;
 
 class ApiFacade implements IApiFacade {
   // ---------------------------------------------------------------------------
-  ApiFacade({DioClient? customClient, ApiDataMapper? customMapper}) {
-    httpClient = customClient ?? DioClient();
-    mapper = customMapper ?? ApiDataMapper();
-  }
 
-  late DioClient httpClient;
+  final httpClient = getIt<DioClient>();
 
   @override
-  ApiDataMapper? mapper;
+  ApiDataMapper? mapper = getIt<ApiDataMapper>();
 
   @override
   Future<void> clearTokens() {

@@ -1,29 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'domain/environment/di.dart';
-import 'domain/environment/environment.dart';
 import 'domain/interfaces/i_auth_controller.dart';
+
+import 'locator/locator.dart';
 import 'presentation/router/app_router.dart';
 // import 'presentation/theme/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
-  // prepare environment
-  final environment = await Environment.buildEnvironment();
+  setup();
+  await getIt.allReady();
 
   runApp(EasyLocalization(
     supportedLocales: const [Locale('ru', 'RU')],
     path: 'assets/languages',
-    child: Di(
-      environment: environment,
-      child: Application(
-        environment: environment,
-      ),
-    ),
+    child: const Application(),
   ));
 }
 
@@ -31,12 +23,7 @@ void main() async {
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 class Application extends StatefulWidget {
-  const Application({
-    Key? key,
-    required this.environment,
-  }) : super(key: key);
-
-  final Map<Type, Object> environment;
+  const Application({super.key});
 
   @override
   State<Application> createState() => ApplicationState();
@@ -48,23 +35,21 @@ class Application extends StatefulWidget {
 
 class ApplicationState extends State<Application> {
   late AppRouter appRouter;
-  late IAuthController authController;
+  final IAuthController authController = getIt<IAuthController>();
+
   late bool _isAuthenticated;
 
   @override
-  void didChangeDependencies() {
-    authController = Di.of(context).g<IAuthController>()
-      ..addChangeListener(() {
-        setState(() {
-          _isAuthenticated = authController.isAuthenticated;
-        });
-        appRouter = AppRouter(isAuthenticated: _isAuthenticated);
-      });
-
+  void initState() {
+    super.initState();
     _isAuthenticated = authController.isAuthenticated;
-
     appRouter = AppRouter(isAuthenticated: _isAuthenticated);
-    super.didChangeDependencies();
+    authController.addChangeListener(() {
+      setState(() {
+        _isAuthenticated = authController.isAuthenticated;
+      });
+      appRouter = AppRouter(isAuthenticated: _isAuthenticated);
+    });
   }
 
   @override

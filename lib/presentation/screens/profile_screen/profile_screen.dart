@@ -2,19 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_rest_sample/presentation/theme/context_extension.dart';
 
-import '../../../domain/environment/di.dart';
 import '../../../generated/locale_keys.g.dart';
+
 import '../../common/common_appbar.dart';
-import '../../common/common_button.dart';
 import '../../common/common_progress_indicator.dart';
 import '../../theme/custom_icons.dart';
 import '../../values/palette.dart';
-import '../../values/values.dart';
 import 'bloc/profile_bloc.dart';
 
 @RoutePage()
@@ -29,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
         title: LocaleKeys.authTitle.tr(),
       ),
       child: BlocProvider(
-        create: (context) => Di.of(context).buildProfileBloc(),
+        create: (context) => ProfileBloc(),
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) => state.map(
             initial: (state) => Column(

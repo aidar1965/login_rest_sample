@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 class Values {
   // static const double horizontalPadding = 20;
   static const double appbarHeight = 57;

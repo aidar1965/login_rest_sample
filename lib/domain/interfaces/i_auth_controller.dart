@@ -8,7 +8,7 @@ abstract class IAuthController {
 
   Future<void> onAuthenticated({required TokensPair tokensPair});
   void onAuthenticationFailed();
-  Future<void> init();
+  Future<IAuthController> init();
 
   void setAuthStatus(bool status);
 
