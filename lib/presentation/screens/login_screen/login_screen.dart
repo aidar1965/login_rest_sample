@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:login_rest_sample/presentation/theme/context_extension.dart';
 
-import '../../../domain/environment/di.dart';
 import '../../../generated/locale_keys.g.dart';
+
 import '../../common/common_appbar.dart';
 import '../../common/common_botton_container.dart';
 import '../../common/common_button.dart';
@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
           title: LocaleKeys.authTitle.tr(),
         ),
         child: BlocProvider(
-          create: (context) => Di.of(context).buildLoginBloc(),
+          create: (context) => LoginBloc(),
           child: BlocConsumer<LoginBloc, LoginState>(
             listener: (context, state) => state.mapOrNull(
               requestError: (state) => requestError(context, state.errorText),

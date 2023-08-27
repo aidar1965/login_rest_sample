@@ -1,4 +1,3 @@
-import '../../http_client/http_client.dart';
 import '../../http_client/i_api_request.dart';
 
 class RequestLogin extends IApiRequest {

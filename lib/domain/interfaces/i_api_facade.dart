@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:login_rest_sample/domain/models/login_result.dart';
 
 import '../../data/api/mapper/mapper.dart';
+
 import '../models/tokens_pair.dart';
 import 'i_auth_controller.dart';
 
@@ -34,4 +33,6 @@ abstract class IApiFacade {
     required String email,
     required String password,
   });
+
+  Future<TokensPair> refreshTokens({required String refreshToken});
 }

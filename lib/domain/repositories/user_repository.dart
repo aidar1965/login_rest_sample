@@ -1,20 +1,20 @@
 import 'dart:async';
 
+import 'package:injectable/injectable.dart';
 import 'package:login_rest_sample/domain/interfaces/i_user_repository.dart';
 import 'package:login_rest_sample/domain/models/user.dart';
 
+import '../../locator/locator.dart';
 import '../interfaces/i_auth_controller.dart';
 import '../interfaces/i_local_cache.dart';
 
+@LazySingleton(as: IUserRepository)
 class UserRepository implements IUserRepository {
-  UserRepository({
-    required this.localCache,
-    required this.authController,
-  }) : _userController = StreamController<User?>.broadcast();
+  UserRepository() : _userController = StreamController<User?>.broadcast();
 
-  final ILocalCache localCache;
+  final localCache = getIt<ILocalCache>();
   final StreamController<User?> _userController;
-  final IAuthController authController;
+  final authController = getIt<IAuthController>();
 
   User? _user;
 

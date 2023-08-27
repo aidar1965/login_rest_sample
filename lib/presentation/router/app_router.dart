@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../../domain/interfaces/i_auth_controller.dart';
 import '../screens/dashboard/dashboard_page.dart';
 import '../screens/favorites_screen/favorites_screen.dart';
 import '../screens/login_screen/login_screen.dart';
@@ -51,7 +50,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
       resolver.next();
     } else {
       // else we navigate to the Login page so we get authenticateed
-      push(LoginRoute());
+      push(const LoginRoute());
     }
   }
 }

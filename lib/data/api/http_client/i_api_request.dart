@@ -1,4 +1,4 @@
-import 'http_client.dart';
+enum AvailableApiMethods { get, post, put, delete, patch }
 
 // описание запроса к API
 abstract class IApiRequest {

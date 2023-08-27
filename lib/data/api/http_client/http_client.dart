@@ -6,8 +6,6 @@ import '../../../domain/interfaces/i_auth_controller.dart';
 import 'i_api_request.dart';
 import 'request_exception.dart';
 
-enum AvailableApiMethods { get, post, put, delete, patch }
-
 class DioClient {
   // ---------------------------------------------------------------------------
   DioClient({bool useLocaleSettings = false}) {
